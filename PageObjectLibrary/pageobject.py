@@ -109,7 +109,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         yield
         WebDriverWait(self.browser, timeout).until(
             staleness_of(old_page),
-            message="Old page did not go stale within %ss" % timeout
+            self.selib.reload_page()
         )
         self.selib.wait_for_condition("return (document.readyState == 'complete')", timeout=10)
 
