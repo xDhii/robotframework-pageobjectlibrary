@@ -71,8 +71,8 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         return self.builtin.get_library_instance("SeleniumLibrary")
 
     @property
-    def sovoslibraries(self):
-        return self.builtin.get_library_instance("SovosLibraries")
+    def automationsetuplibrary(self):
+        return self.builtin.get_library_instance("AutomationSetupLibrary")
 
     @property
     def browser(self):
