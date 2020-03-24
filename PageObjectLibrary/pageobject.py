@@ -71,6 +71,10 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         return self.builtin.get_library_instance("SeleniumLibrary")
 
     @property
+    def sovoslibraries(self):
+        return self.builtin.get_library_instance("SovosLibraries")
+
+    @property
     def browser(self):
         warnings.warn("browser is deprecated. Use driver instead.", DeprecationWarning)
         return self.driver
@@ -87,7 +91,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
             return self.selib._current_browser()
         else:
             raise Exception("unable to find 'driver' or '_current browser' attribute of SeleniumLibrary")
-    
+
     def __str__(self):
         return self.__class__.__name__
 
@@ -96,7 +100,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         return self.__class__.__name__
 
     @contextmanager
-    def _wait_for_page_refresh(self, timeout=10):
+    def _wait_for_page_refresh(self, timeout=30):
         """Context manager that waits for a page transition.
 
         This keyword works by waiting for two things to happen:
@@ -111,7 +115,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
             staleness_of(old_page),
             self.selib.reload_page()
         )
-        self.selib.wait_for_condition("return (document.readyState == 'complete')", timeout=10)
+        self.selib.wait_for_condition("return (document.readyState == 'complete')", timeout=30)
 
     def _is_current_page(self):
         """Determine if this page object represents the current page.
