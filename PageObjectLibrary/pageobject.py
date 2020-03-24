@@ -63,7 +63,8 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
     # test (eg: by libdoc, robotframework-hub, etc)
     @property
     def se2lib(self):
-        warnings.warn("se2lib is deprecated. Use selib instead.", DeprecationWarning)
+        warnings.warn("se2lib is deprecated. Use selib instead.",
+                      DeprecationWarning)
         return self.selib
 
     @property
@@ -72,11 +73,12 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
 
     @property
     def automationsetuplibrary(self):
-        return self.builtin.get_library_instance("AutomationSetupLibrary")
+        return self.builtin.get_library_instance("automationsetuplibrary")
 
     @property
     def browser(self):
-        warnings.warn("browser is deprecated. Use driver instead.", DeprecationWarning)
+        warnings.warn("browser is deprecated. Use driver instead.",
+                      DeprecationWarning)
         return self.driver
 
     @property
@@ -90,7 +92,8 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         elif hasattr(self.selib, "_current_browser"):
             return self.selib._current_browser()
         else:
-            raise Exception("unable to find 'driver' or '_current browser' attribute of SeleniumLibrary")
+            raise Exception(
+                "unable to find 'driver' or '_current browser' attribute of SeleniumLibrary")
 
     def __str__(self):
         return self.__class__.__name__
@@ -115,7 +118,8 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
             staleness_of(old_page),
             self.selib.reload_page()
         )
-        self.selib.wait_for_condition("return (document.readyState == 'complete')", timeout=30)
+        self.selib.wait_for_condition(
+            "return (document.readyState == 'complete')", timeout=30)
 
     def _is_current_page(self):
         """Determine if this page object represents the current page.
@@ -138,5 +142,6 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
 
         self.logger.info("expected title: '%s'" % expected_title)
         self.logger.info("  actual title: '%s'" % actual_title)
-        raise Exception("expected title to be '%s' but it was '%s'" % (expected_title, actual_title))
+        raise Exception("expected title to be '%s' but it was '%s'" %
+                        (expected_title, actual_title))
         return False
